@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Main page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css'%}"
+</head>
+
+<body>
+    <form action="validate/" method="post">
+        Email body: <input type="text" name="email" ><br><br>
+        <input type="submit" value="Submit">
+    </form><button class="send_button">Send email</button>
+</body>
+</html>
