@@ -39,7 +39,7 @@ pipeline {
         stage('Docker Run') {
             steps{
                 script {
-                    sh 'docker run -d -p 8096:5000 --rm --name email-sender 350073109551.dkr.ecr.eu-central-1.amazonaws.com/email-sender:latest'
+                    sh 'docker run -d -p 8096:8000 --rm --name email-sender 350073109551.dkr.ecr.eu-central-1.amazonaws.com/email-sender:latest'
                 }
             }
         }
