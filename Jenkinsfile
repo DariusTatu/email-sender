@@ -16,6 +16,12 @@ pipeline {
         stage('Pushing to ECR') {
             steps{  
                 script {
+                    withCredentials([[
+                        $class: 'AmazonWebServicesCredentialsBinding', 
+                        accessKeyVariable: 'AKIAVDAP3XQX3IRSPLBJ', 
+                        secretKeyVariable: '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',
+                        credentialsId: '350073109551'
+                    ]]) {
                         sh 'aws ecr get-login-password --region eu-central-1 | docker login --username dtatu --password adela@123 350073109551.dkr.ecr.eu-central-1.amazonaws.com'
                         sh 'docker push 350073109551.dkr.ecr.eu-central-1.amazonaws.com/email-sender:latest'
                 }
