@@ -31,7 +31,7 @@ pipeline {
 
         stage('Stop previous containers') {
             steps {
-                sh 'docker ps -f name=email-sender --no-run-if-empty docker container stop'
+                sh 'docker ps -f name=email-sender -q | xargs --no-run-if-empty docker container stop'
                 sh 'docker container ls -a -fname=email-sender -q | xargs -r docker container rm'
             }
         }
