@@ -8,7 +8,6 @@ pipeline {
         stage('Build Docker Image'){
             steps {
                 dockerImage = docker.build registry
-                echo 'Docker image built'
             }
         }
     }
