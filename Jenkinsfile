@@ -5,9 +5,12 @@ pipeline {
         registry = "350073109551.dkr.ecr.eu-central-1.amazonaws.com/email-sender"
     }
     stages { 
-        stage('Build Docker Image'){
+        stage('Docker Image'){
             steps {
-                dockerImage = docker.build registry
+                script {
+                    dockerImage = docker.build registry
+                    echo 'Docker image built'
+                }
             }
         }
     }
