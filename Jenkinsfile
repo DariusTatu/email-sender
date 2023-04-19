@@ -18,8 +18,8 @@ pipeline {
                 script {
                     withCredentials([[
                         $class: 'AmazonWebServicesCredentialsBinding', 
-                        accessKeyVariable: 'AKIAVDAP3XQX3IRSPLBJ', 
-                        secretKeyVariable: '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',
+                        accessKeyVariable: 'ACCESS_KEY_VARIABLE', 
+                        secretKeyVariable: 'SECRET_KEY_VARIABLE',
                         credentialsId: '350073109551'
                     ]]) {
                         sh 'aws ecr get-login-password --region eu-central-1 | docker login --username dtatu --password adela@123 350073109551.dkr.ecr.eu-central-1.amazonaws.com'
