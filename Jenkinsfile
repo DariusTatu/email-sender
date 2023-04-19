@@ -1,14 +1,15 @@
 pipeline { 
     agent any 
     stages { 
-        stage('Build') { 
-            steps { 
-                sh 'echo "Hello World"'
+        stage('Checkout') {
+            steps {
+                checkout scm
             }
         }
-        stage('Done'){
+        stage('Build Docker Image'){
             steps {
-                echo " Wow! I'm done!"
+                sh "docker build . -t email-sender-image"
+                echo 'Docker image built'
             }
         }
     }
