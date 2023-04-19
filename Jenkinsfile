@@ -18,9 +18,9 @@ pipeline {
                 script {
                     withCredentials([[
                         $class: 'AmazonWebServicesCredentialsBinding', 
-                        accessKeyVariable: 'ACCESS_KEY_VARIABLE', 
-                        secretKeyVariable: 'SECRET_KEY_VARIABLE',
-                        credentialsId: '350073109551'
+                        accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
+                        credentialsId: 'aws-jenkins'
                     ]]) {
                         sh 'aws ecr get-login-password --region eu-central-1 | docker login --username dtatu --password adela@123 350073109551.dkr.ecr.eu-central-1.amazonaws.com'
                         sh 'docker push 350073109551.dkr.ecr.eu-central-1.amazonaws.com/email-sender:latest'
