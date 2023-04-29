@@ -1,12 +1,13 @@
 pipeline { 
     agent any 
-
+    // Setting global variables  
     environment {
         registryName = "sendercontainer"
         registryCredential = "ACR"
         registryURL = "sendercontainer.azurecr.io"
         imageName = "email-sender"
     }
+
     stages { 
         stage('Build Docker Image'){
             steps {
@@ -16,6 +17,7 @@ pipeline {
                 }
             }
         }
+        
         stage('Pushing to ACR') {
             steps{  
                 script{ 
