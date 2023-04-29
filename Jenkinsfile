@@ -5,12 +5,13 @@ pipeline {
         registryName = "sendercontainer"
         registryCredential = "ACR"
         registryURL = "sendercontainer.azurecr.io"
+        imageName = "email-sender"
     }
     stages { 
         stage('Docker Image'){
             steps {
                 script {
-                    dockerImage = docker.build registryName 
+                    dockerImage = docker.build registryName/${imageName}
                     echo 'Docker image built'
                 }
             }
