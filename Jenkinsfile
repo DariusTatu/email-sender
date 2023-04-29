@@ -11,7 +11,7 @@ pipeline {
         stage('Docker Image'){
             steps {
                 script {
-                    dockerImage = docker.build registryName + ":imageName"
+                    dockerImage = docker.build registryName + ":$imageName"
                     echo 'Docker image built'
                 }
             }
