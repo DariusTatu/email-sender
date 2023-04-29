@@ -8,7 +8,7 @@ pipeline {
         imageName = "email-sender"
     }
     stages { 
-        stage('Docker Image'){
+        stage('Build Docker Image'){
             steps {
                 script {
                     dockerImage = docker.build registryName + ":$imageName"
