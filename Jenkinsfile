@@ -2,30 +2,26 @@ pipeline {
     agent any 
 
     environment {
-        registry = "350073109551.dkr.ecr.eu-central-1.amazonaws.com/email-sender"
+        registryName = "sendercontainer"
+        registryCredential = "ACR"
+        registryURL = "sendercontainer.azurecr.io"
     }
     stages { 
         stage('Docker Image'){
             steps {
                 script {
-                    dockerImage = docker.build registry
+                    dockerImage = docker.build registryName 
                     echo 'Docker image built'
                 }
             }
         }
-        stage('Pushing to ECR') {
+        stage('Pushing to ACR') {
             steps{  
-                script {
-                    withCredentials([[
-                        $class: 'AmazonWebServicesCredentialsBinding', 
-                        accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
-                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
-                        credentialsId: 'aws-jenkins'
-                    ]]) {
-                        sh 'aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 350073109551.dkr.ecr.eu-central-1.amazonaws.com'
-                        sh 'docker push 350073109551.dkr.ecr.eu-central-1.amazonaws.com/email-sender:latest'
+                script{ 
+                    docker.withRegistry("http://${registryURL}", registryCredential) {
+                        dockerImage.push()
                     }
-                }
+                }  
             }
         }
 
@@ -39,7 +35,7 @@ pipeline {
         stage('Docker Run') {
             steps{
                 script {
-                    sh 'docker run -d -p 8096:8000 --rm --name email-sender 350073109551.dkr.ecr.eu-central-1.amazonaws.com/email-sender:latest'
+                    sh 'docker run -d -p 8096:8000 --rm --name email-sender ${registryUrl}/${registryName}'
                 }
             }
         }
