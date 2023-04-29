@@ -24,20 +24,5 @@ pipeline {
                 }  
             }
         }
-
-        stage('Stop previous containers') {
-            steps {
-                sh 'docker ps -f name=email-sender -q | xargs --no-run-if-empty docker container stop'
-                sh 'docker container ls -a -fname=email-sender -q | xargs -r docker container rm'
-            }
-        }
-      
-        stage('Docker Run') {
-            steps{
-                script {
-                    sh 'docker run -d -p 8096:8000 --rm --name email-sender sendercontainer.azurecr.io/sendercontainer'
-                }
-            }
-        }
     }
 }
