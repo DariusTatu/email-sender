@@ -35,7 +35,7 @@ pipeline {
         stage('Docker Run') {
             steps{
                 script {
-                    sh 'docker run -d -p 8096:8000 --rm --name email-sender ${registryUrl}/${registryName}'
+                    sh 'docker run -d -p 8096:8000 --rm --name email-sender sendercontainer.azurecr.io/sendercontainer'
                 }
             }
         }
