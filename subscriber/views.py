@@ -21,4 +21,4 @@ def send_email():
         subject=title,
         message=body,
         from_email=settings.EMAIL_HOST_USER,
-        recipient_list=[settings.RECIPIENT_ADDRESS])
+        recipient_list=settings.RECIPIENT_ADDRESS)

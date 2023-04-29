@@ -127,4 +127,4 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'daryus942007@yahoo.com'
 EMAIL_HOST_PASSWORD = 'qhqsqheumzgydkjl'
-RECIPIENT_ADDRESS = 'en.dtatu94@gmail.com'
+RECIPIENT_ADDRESS = ['en.dtatu94@gmail.com', 'ionela_maria92@yahoo.com', 'ionelamiholca98@gmail.com']
