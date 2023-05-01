@@ -3,19 +3,20 @@ from django.core.mail import send_mail
 from django.conf import settings
 import json
 
+
 def show_main_page(request):
     return render(request, "main.html")
 
 
 def validate(request):
-    if request.method == 'POST': 
+    if request.method == 'POST':
         send_email()
     return render(request, 'success.html')
 
 
 def send_email():
-    title = "Email for my followers"
-    body = "Hello dear followers, this is my first email."
+    title = "Get the chance to win 1 million $ by clicking this link"
+    body = "Hello dear followers, you can follow me on my social media for a chance to win 1 million $."
 
     send_mail(
         subject=title,
