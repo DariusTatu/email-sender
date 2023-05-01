@@ -31,7 +31,7 @@ pipeline {
         stage('Deploy to ACI') {
             steps{  
                 script{ 
-                    sh 'az login --service-principal -u $CLIENT_ID -p $CLIENT_SECRET --tenant $TENANT_ID'
+                    az login --service-principal -u $CLIENT_ID -p $CLIENT_SECRET --tenant $TENANT_ID
                 }  
             }
         }
