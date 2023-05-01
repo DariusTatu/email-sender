@@ -40,7 +40,7 @@ pipeline {
 
                     // Login to Azure
                     sh '''
-                    az login --service-principal -u <sendercontainer> -p <5h5UAhIENU56XKKPC9anRO5+FSbVvJy/dtoXZjpiyW+ACRDXaDFL> --tenant <bf37c963-c21a-4893-bef3-2a9c983a0050>
+                    az login --service-principal -u sendercontainer -p 5h5UAhIENU56XKKPC9anRO5+FSbVvJy/dtoXZjpiyW+ACRDXaDFL --tenant bf37c963-c21a-4893-bef3-2a9c983a0050
                     '''
 
                     // Create ACI
