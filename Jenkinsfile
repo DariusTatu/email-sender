@@ -43,15 +43,15 @@ pipeline {
 
                     // Create ACI
                     sh '''
-                    az container create \
-                        --resource-group ${resourceGroupName} \
-                        --name ${aciName} \
-                        --image ${registryURL}/${imageName} \
-                        --registry-login-server ${registryURL} \
-                        --registry-username ${registryCredential} \
-                        --registry-password ${ACR_PASSWORD} \
-                        --dns-name-label ${dnsNameLabel} \
-                        --ports ${port} \
+                    az container create
+                        --resource-group ${resourceGroupName} 
+                        --name ${aciName} 
+                        --image ${registryURL}/${imageName} 
+                        --registry-login-server ${registryURL} 
+                        --registry-username ${registryCredential} 
+                        --registry-password ${ACR_PASSWORD} 
+                        --dns-name-label ${dnsNameLabel} 
+                        --ports ${port} 
                         --ip-address public
                     '''
                 }
