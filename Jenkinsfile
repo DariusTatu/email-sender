@@ -31,7 +31,7 @@ pipeline {
         stage('Azure Login') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'jenkins', usernameVariable: 'CLIENT_ID', passwordVariable: 'CLIENT_SECRET')]) {
+                    withCredentials([azureServicePrincipal(credentialsId: 'jenkins')]) {
                         if (!env.CLIENT_ID || !env.CLIENT_SECRET || !env.TENANT_ID) {
                             error("Required environment variables not set: CLIENT_ID, CLIENT_SECRET, or TENANT_ID")
                         }
