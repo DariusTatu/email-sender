@@ -32,11 +32,11 @@ pipeline {
             steps {
                 script {
                     withCredentials([azureServicePrincipal(credentialsId: 'jenkins')]) {
-                        if (!env.CLIENT_ID || !env.CLIENT_SECRET || !env.TENANT_ID) {
-                            error("Required environment variables not set: CLIENT_ID, CLIENT_SECRET, or TENANT_ID")
+                        if (!env.AZURE_CLIENT_ID || !env.AZURE_CLIENT_SECRET || !env.AZURE_TENANT_ID) {
+                            error('Required environment variables not set: AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, or AZURE_TENANT_ID')
                         }
                         azureCLI commands: [[exportVariablesString: '', script: ''' 
-                            az login --service-principal -u $CLIENT_ID -p $CLIENT_SECRET --tenant $TENANT_ID
+                            az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
                         ''']]
                     }
                 }
