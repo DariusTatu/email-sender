@@ -27,5 +27,13 @@ pipeline {
                 }  
             }
         }
+
+        stage('Deploy to ACI') {
+            steps{  
+                script{ 
+                    azureContainerInstance(credentialsId: 'sendercontainer', resourceGroup: 'emailsender', region: 'eastus', containerGroupName: 'sendercontainer', imageName: 'email-sender', memory: '1.5', cpu: '1', dnsNameLabel: 'my-email-sender')                        
+                }  
+            }
+        }
     }
 }
