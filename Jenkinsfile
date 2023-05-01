@@ -31,7 +31,7 @@ pipeline {
         stage('Deploy to ACI') {
             steps{  
                 script{ 
-                    azureContainerInstance(credentialsId: 'sendercontainer', resourceGroup: 'emailsender', region: 'eastus', containerGroupName: 'sendercontainer', imageName: 'email-sender', memory: '1.5', cpu: '1', dnsNameLabel: 'my-email-sender')                        
+                    sh 'az login --service-principal -u $CLIENT_ID -p $CLIENT_SECRET --tenant $TENANT_ID'
                 }  
             }
         }
