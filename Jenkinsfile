@@ -12,7 +12,10 @@ pipeline {
         stage('Build Docker Image'){
             steps {
                 script {
-                    dockerImage = docker.build registryName + ":$imageName"
+                    if (!registryName || !imageName) {
+                        error("Required variables not set: registryName or imageName")
+                    }
+                    dockerImage = docker.build "${registryName}:${imageName}"
                     echo 'Docker image built'
                 }
             }
@@ -21,6 +24,12 @@ pipeline {
         stage('Pushing to ACR') {
             steps{  
                 script{ 
+                    if (!dockerImage) {
+                        error("Docker image not built")
+                    }
+                    if (!registryURL || !registryCredential) {
+                        error("Required variables not set: registryURL or registryCredential")
+                    }
                     docker.withRegistry("http://${registryURL}", registryCredential) {
                         dockerImage.push()
                     }
@@ -31,27 +40,12 @@ pipeline {
         stage('Deploy to ACI') {
             steps{  
                 script{
-                
-                def resourceGroupName = 'emailsender'
-                def aciName = 'email-sender'
-                def location = 'eastus'
-                def dnsNameLabel = 'my-email-sender'
-                def port = '8000'
-                
-                azureCLI commands: [[exportVariablesString: '', script: ''' 
-                az login --service-principal -u $CLIENT_ID -p $CLIENT_SECRET --tenant $TENANT_ID
-                az account set --subscription $SUBSCRIBTION_ID
-                az container create
-                    --resource-group ${resourceGroupName} 
-                    --name ${aciName} 
-                    --image ${registryURL}/${imageName} 
-                    --registry-login-server ${registryURL} 
-                    --registry-username ${registryCredential} 
-                    --registry-password ${ACR_PASSWORD} 
-                    --dns-name-label ${dnsNameLabel} 
-                    --ports ${port} 
-                    --ip-address public    
-                ''']]
+                    if (!env.CLIENT_ID || !env.CLIENT_SECRET || !env.TENANT_ID) {
+                        error("Required environment variables not set: CLIENT_ID, CLIENT_SECRET, or TENANT_ID")
+                    }
+                    azureCLI commands: [[exportVariablesString: '', script: ''' 
+                        az login --service-principal -u $CLIENT_ID -p $CLIENT_SECRET --tenant $TENANT_ID
+                    ''']]
                 }  
             }
         }
