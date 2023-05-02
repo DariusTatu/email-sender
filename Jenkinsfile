@@ -2,7 +2,6 @@ pipeline {
     agent {
         docker {
             image 'mcr.microsoft.com/azure-cli'
-            label 'azure-cli-agent'
             args '-u root' // Use root user to avoid permission issues
         }
     }
